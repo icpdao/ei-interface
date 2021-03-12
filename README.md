@@ -1,1 +1,1 @@
-# icp-ei-interface
+# EI-Interface

@@ -1,0 +1,2 @@
+class PairError(LookupError):
+    pass

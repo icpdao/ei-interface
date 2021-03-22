@@ -87,26 +87,26 @@ class GameSimulation:
         self.data, self.all_size = simula_user(sd)
         self.pair_ins = Pair()
         self.paired: dict = dict()
-        self.paired_var: float = -1
         self.vote_result: list[dict] = []
 
     def do_pair(self):
         icp = self._extract_icp()
         self.pair_ins.set(icp)
         print('icp', icp)
-        self.paired_var, self.paired = self.pair_ins.execute()
+        self.paired = self.pair_ins.execute()
+        print('paired', self.paired)
         return self.paired
 
     def do_vote(self):
-        if self.paired_var == -1:
+        if len(self.paired) == 0:
             raise NotYetPairedError
         user_ov = self._extract_user_ov()
         vote_result: list[dict] = []
         for u in self.paired:
             ov = user_ov[u]
             for p in self.paired[u]:
-                pa_size = sum([x[SIZE_KEY] for x in p[PAIR_KEY][0]])
-                pb_size = sum([x[SIZE_KEY] for x in p[PAIR_KEY][1]])
+                pa_size = p[PAIR_KEY][0][SIZE_KEY]
+                pb_size = p[PAIR_KEY][1][SIZE_KEY]
                 ov_value = random.gauss(pa_size / pb_size, ov)
                 if ov_value < 1:
                     p[VOTED_KEY] = 0

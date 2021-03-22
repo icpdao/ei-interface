@@ -8,8 +8,15 @@ def test_do_pair():
     print('gen data end')
     sim.do_pair()
     sim.do_vote()
-    print(json.dumps(sim.vote_result, indent=4))
-    print('es', json.dumps(sim.es, indent=4))
+    for sv in sim.vote_result:
+        s = ''
+        for i, v in enumerate(sv['pair']):
+            if i == sv['voted']:
+                s += f'\033[7m uid={v["uid"]} real_value={v["real_value"]} size={v["size"]} \033[0m'
+            else:
+                s += f' uid={v["uid"]} real_value={v["real_value"]} size={v["size"]} '
+        print(sv['vote_uid'], s)
+    print('es', sim.es)
     print('ei', sim.ei)
 
 

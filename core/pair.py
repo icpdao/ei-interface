@@ -2,7 +2,6 @@ import json
 import uuid
 from collections import defaultdict
 from statistics import pvariance
-
 from core.kw import kw_algorithm
 
 IID_KEY = 'iid'
@@ -19,6 +18,7 @@ class Pair:
 
     def __init__(self, sd: list[dict] = None) -> None:
         self.all_pair: list[dict] = []
+        self.index_pair: dict = dict()
         self.all_user: set = set()
         self.all_category: set = set()
         self.unpaired_dict = dict()
@@ -81,7 +81,7 @@ def calculate_pair_weight(current, target):
     sc_weight = (size_weight * category_weight)
     if sc_weight == 0:
         return user_weight
-    return user_weight / sc_weight
+    return round(user_weight / sc_weight, 2)
 
 
 def calculate_pair_user_weight(pair, user, need_vote):

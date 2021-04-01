@@ -16,6 +16,7 @@ def kw_algorithm(a: list, b: list, wf):
         tmp_matrix = []
         for bi, bn in enumerate(b):
             w = wf(an, bn)
+            # print('kw_weight', an, bn, w)
             tmp_matrix.append(w)
             if max_weight == -1 or max_weight < w:
                 max_weight = w
